@@ -2,6 +2,7 @@ import sys
 import pathlib
 import os
 import re
+import threading
 
 """Regex for season names"""
 SEASON_NAME = "s(e(ason)?)?( )*([0-9])*[0-9]( )?"
@@ -49,6 +50,13 @@ def gen_file(wanted_name: str, season_num: int, episode_num: int, org_file: str)
     return f"{file_formatted}-s{season_num:02}e{episode_num:02}.{ext}"
 
 
+def move_file(old: str, new: str):
+    """Used as an adapter for threading, moves file using raw linux mv"""
+
+    log(f"renaming '{old}' to '{new}'..")
+    os.system(f"mv '{old}' '{new}'")
+
+
 log("renaming files..")
 ran = 0
 
@@ -72,8 +80,7 @@ for file in files:
     episode_num = int(episode_match.group().split("e")[-1].split("p")[-1])
     generated_file = gen_file(args[0], season_num, episode_num, file)
 
-    log(f"renaming '{file}' to '{generated_file}'..")
-    os.system(f"mv '{file}' '{generated_file}'")
+    threading.Thread(target=move_file, args=(file, generated_file)).start()
 
 if ran != 0:
     log(f"renamed {ran} file(s) successfully")
