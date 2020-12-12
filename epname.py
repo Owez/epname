@@ -69,7 +69,7 @@ for file in files:
         if season_match is None
         else season_match.group().split("n")[-1].split("s")[-1]
     )
-    episode_num = int(episode_match.group().split("e")[-1])
+    episode_num = int(episode_match.group().split("e")[-1].split("p")[-1])
     generated_file = gen_file(args[0], season_num, episode_num, file)
 
     log(f"renaming '{file}' to '{generated_file}'..")
