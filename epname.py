@@ -13,17 +13,19 @@ EPISODE_NAME = "e(pisode|p(i)?)?( )*([0-9])*[0-9]"
 def fatal(msg: str):
     """Fatal error message"""
 
-    print(f"error: {msg}!")
+    print(f"Error: {msg}!")
     sys.exit(1)
 
 
 def log(msg: str):
     """Log message"""
 
-    print(f"info: {msg}")
+    print(f"Info: {msg}")
 
 
-print("epname: format your movies!")
+print(
+    "Usage: python epname.py [name] [optional season num]\n\n  v1.0.0 - Easily format movies & tv into properly organised files\n"
+)
 
 args = sys.argv[1:]
 
@@ -47,6 +49,7 @@ def gen_file(wanted_name: str, season_num: int, episode_num: int, org_file: str)
     return f"{file_formatted}-s{season_num:02}e{episode_num:02}.{ext}"
 
 
+log("renaming files..")
 ran = 0
 
 for file in files:
