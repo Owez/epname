@@ -2,6 +2,8 @@
 
 Easily format movies & tv into properly organised files
 
+- [Blog post](https://ogriffiths.com/2020/epname)
+
 ## Installation
 
 Ensure your running Linux as this script only supports it, then clone this repository:
