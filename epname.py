@@ -61,13 +61,14 @@ log("renaming files..")
 ran = 0
 
 for file in files:
-    episode_match = re.search(EPISODE_NAME, file)
+    file_lower = file.lower()
+    episode_match = re.search(EPISODE_NAME, file_lower)
 
     if episode_match is None:
         continue
 
     ran += 1
-    season_match = re.search(SEASON_NAME, file)
+    season_match = re.search(SEASON_NAME, file_lower)
 
     if season_match is None and len(args) != 2:
         fatal(f"no season found for '{file}' and no season num given as arg")
